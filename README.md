@@ -40,18 +40,10 @@ A typical result looks like this:
 
 ## Installation
 
-Installation can be done using `pip`, e.g.
+Installation can be done using python, e.g.:
+```python
+> python setup.py install```
 
-```bash
-> pip install https://github.com/chunglabmit/pystripe/archive/master.zip
-```
-
-If using the provided Windows batch scripts, install within a conda environment
-```bash
-> conda create -n pystripe python==3.6
-> activate pystripe
-> pip install https://github.com/chunglabmit/pystripe/archive/master.zip
-```
 
 ## Command-line interface (CLI)
 
@@ -74,6 +66,7 @@ Arguments for `pystripe` CLI:
 Parent directories will be created as needed. Note that setting the output to the input
 will overwrite the original image(s). Default is either to write the result from `my/img/input.tif` to
 `my/img/input_destriped.tif` or results from `my/folder/` to `my/folder_destriped/`. 
+* **-f**: (str, optional) path to the flat image file.
 * **--sigma1, -s1**: (float) bandwidth of the stripe filter for the foreground
 * **--sigma2, -s2**: (float, optional) bandwidth of the stripe filter for the background. 
 Default is 0, indicating no background destriping. 
