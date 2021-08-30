@@ -42,7 +42,8 @@ A typical result looks like this:
 
 Installation can be done using python, e.g.:
 ```python
-> python setup.py install```
+> python setup.py install
+```
 
 
 ## Command-line interface (CLI)
@@ -60,7 +61,6 @@ as (compressed) tiffs in a new folder next to the input directory with `_destrip
 appended.
 
 Arguments for `pystripe` CLI:
-
 * **--input, -i**: (str) path to a single image or a directory with images to filter
 * **--output, -o**: (str, optional) path to a single image or a directory to write to.
 Parent directories will be created as needed. Note that setting the output to the input
