@@ -143,6 +143,24 @@ def imsave(path, img, compression=1):
     elif extension == '.tif' or extension == '.tiff':
         tifffile.imsave(path, img, compress=compression)
 
+def unpad(x, pad_width):
+    """
+    func to unpad slice (FOR LINUX)
+    ----------
+    x : ndarray
+        image array
+    pad_width : tuple
+        tuple fed to np.pad
+    Returns
+    -------
+    ndarray
+        unpadded img
+    """
+    slices = []
+    for c in pad_width:
+        e = None if c[1] == 0 else -c[1]
+        slices.append(slice(c[0], e))
+    return x[tuple(slices)]
 
 def wavedec(img, wavelet, level=None):
     """Decompose `img` using discrete (decimated) wavelet transform using `wavelet`
@@ -469,6 +487,10 @@ def filter_streaks(img, sigma, level=0, wavelet='db3', crossover=10, threshold=-
         fimg = fimg - dark
 
     # Divide by the flat
+    flat_pady, flat_padx = [_ % 2 for _ in flat.shape]
+    if flat_pady == 1 or flat_padx == 1:
+        flat = np.pad(flat, ((0, flat_pady), (0, flat_padx)), mode="edge")
+    
     if flat is not None:
         fimg = apply_flat(fimg, flat)
 
