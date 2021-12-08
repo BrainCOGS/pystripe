@@ -439,11 +439,14 @@ def filter_streaks(img, sigma, level=0, wavelet='db3', crossover=10, threshold=-
             threshold = 1
 
     img = np.array(img, dtype=np.float)
+    print("Image shape:")
+    print(img.shape)
     #
     # Need to pad image to multiple of 2
     #
     pady, padx = [_ % 2 for _ in img.shape]
     if pady == 1 or padx == 1:
+        print("padding image")
         img = np.pad(img, ((0, pady), (0, padx)), mode="edge")
 
     # TODO: Clean up this logic with some dual-band CLI alternative
@@ -486,12 +489,15 @@ def filter_streaks(img, sigma, level=0, wavelet='db3', crossover=10, threshold=-
     if dark > 0:
         fimg = fimg - dark
 
-    # Divide by the flat
-    flat_pady, flat_padx = [_ % 2 for _ in flat.shape]
-    if flat_pady == 1 or flat_padx == 1:
-        flat = np.pad(flat, ((0, flat_pady), (0, flat_padx)), mode="edge")
+    # Divide by the flat if it was provided
     
     if flat is not None:
+        print("Flat shape:")
+        print(flat.shape)
+        flat_pady, flat_padx = [_ % 2 for _ in flat.shape]
+        if flat_pady == 1 or flat_padx == 1:
+            print("Padding flat")
+            flat = np.pad(flat, ((0, flat_pady), (0, flat_padx)), mode="edge")
         fimg = apply_flat(fimg, flat)
 
     # Convert to 16 bit image
